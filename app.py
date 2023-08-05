@@ -67,41 +67,41 @@ def get_locations_within_100_meters(Latitude, Longitude):
 
 
 
-def get_matched_data(source_lat, source_lon, dest_lat, dest_lon):
-    # Convert source and destination coordinates to floats
-    source_lat = float(source_lat)
-    source_lon = float(source_lon)
-    dest_lat = float(dest_lat)
-    dest_lon = float(dest_lon)
+# def get_matched_data(source_lat, source_lon, dest_lat, dest_lon):
+#     # Convert source and destination coordinates to floats
+#     source_lat = float(source_lat)
+#     source_lon = float(source_lon)
+#     dest_lat = float(dest_lat)
+#     dest_lon = float(dest_lon)
 
-    # Assuming the 'data.json' file is in the same directory as this script
-    with open('data.json', 'r') as json_file:
-        all_data = json.load(json_file)
+#     # Assuming the 'data.json' file is in the same directory as this script
+#     with open('data.json', 'r') as json_file:
+#         all_data = json.load(json_file)
 
-    matched_data = []
-    for item in all_data:
-        # Check if the dictionary has both 'latitude' and 'longitude' keys
-        if 'Latitude' in item and 'Longitude' in item:
-            # Convert latitude and longitude from string to float
-            lat = float(item['Latitude'])
-            lon = float(item['Longitude'])
-            # Check if the item's coordinates are between the source and destination
-            if (source_lat <= lat <= dest_lat or
-                dest_lat <= lat <= source_lat) and \
-               (source_lon <= lon <= dest_lon or
-                dest_lon <= lon <= source_lon):
-                matched_data.append(item)
+#     matched_data = []
+#     for item in all_data:
+#         # Check if the dictionary has both 'latitude' and 'longitude' keys
+#         if 'Latitude' in item and 'Longitude' in item:
+#             # Convert latitude and longitude from string to float
+#             lat = float(item['Latitude'])
+#             lon = float(item['Longitude'])
+#             # Check if the item's coordinates are between the source and destination
+#             if (source_lat <= lat <= dest_lat or
+#                 dest_lat <= lat <= source_lat) and \
+#                (source_lon <= lon <= dest_lon or
+#                 dest_lon <= lon <= source_lon):
+#                 matched_data.append(item)
 
-    return matched_data
+#     return matched_data
 
-@app.route('/<source_lat>,<source_lon>/<dest_lat>,<dest_lon>', methods=['GET'])
-def get_matched_data_between_source_and_dest(source_lat, source_lon, dest_lat, dest_lon):
-    matched_data = get_matched_data(source_lat, source_lon, dest_lat, dest_lon)
+# @app.route('/<source_lat>,<source_lon>/<dest_lat>,<dest_lon>', methods=['GET'])
+# def get_matched_data_between_source_and_dest(source_lat, source_lon, dest_lat, dest_lon):
+#     matched_data = get_matched_data(source_lat, source_lon, dest_lat, dest_lon)
 
-    if matched_data:
-        return jsonify(matched_data)
-    else:
-        return jsonify({'error': 'No matching data found.'}), 404
+#     if matched_data:
+#         return jsonify(matched_data)
+#     else:
+#         return jsonify({'error': 'No matching data found.'}), 404
 
 if __name__=="__main__":
     app.run(debug=True)
