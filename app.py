@@ -1,7 +1,6 @@
 import json
 from flask import Flask, request, jsonify
 import math
-import requests
 from geopy.distance import geodesic
 
 app=Flask(__name__)
